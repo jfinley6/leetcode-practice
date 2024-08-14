@@ -8,7 +8,7 @@ class Solution:
         for num in nums:
             if abs(num) < abs(closestNum):
                 closestNum = num
-        
+
         if closestNum < 0 and abs(closestNum) in nums:
             return abs(closestNum)
         else:
@@ -39,8 +39,33 @@ class Solution:
             word2_index += 1
 
         return ' '.join(mergedList)
-        
-    
+
+    # Given a roman numeral, convert it to an integer.
+    def romanToInt(self, s: str) -> str:
+        d = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+
+        sum = 0
+        n = len(s)
+        i = 0
+        while i < n:
+            if i < n - 1 and d[s[i]] < d[s[i+1]]:
+                sum += d[s[i+1]] - d[s[i]]
+                i += 2
+            else:
+                sum += d[s[i]]
+                i += 1
+
+        return sum
+
+
 # Create an instance of the Solution class
 solution = Solution()
 
@@ -57,3 +82,11 @@ solution = Solution()
 # print(solution.mergeAlternately("ab", "pqrs"))
 # # Output: a p b q c d
 # print(solution.mergeAlternately("abcd", "pq"))
+
+# romanToInt cases
+# Output: 3
+# print(solution.romanToInt("III"))
+# Output: 58
+# print(solution.romanToInt("LVIII"))
+# Output: 1994
+# print(solution.romanToInt("MCMXCIV"))
