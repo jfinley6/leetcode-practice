@@ -81,6 +81,20 @@ class Solution:
 
         return False
 
+    # You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+    def maxProfit(self, prices: List[int]) -> int:
+        min_price = float('inf')
+        max_profit = 0
+
+        for price in prices:
+            if price < min_price:
+                min_price = price
+            profit = price - min_price
+            if profit > max_profit:
+                max_profit = profit
+
+        return max_profit
+    
 # Create an instance of the Solution class
 solution = Solution()
 
@@ -111,3 +125,9 @@ solution = Solution()
 # print(solution.isSubsequence("abc", "ahbgdc"))
 # Output: false
 # print(solution.isSubsequence("axc", "ahbgdc"))
+
+# maxProfit cases
+# Output: 5
+print(solution.maxProfit([7,1,5,3,6,4]))
+# Output: 0
+print(solution.maxProfit([7,6,4,3,1]))
