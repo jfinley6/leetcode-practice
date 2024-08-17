@@ -95,6 +95,23 @@ class Solution:
 
         return max_profit
     
+    # Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string "".
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        min_length = float('inf')
+
+        for s in strs:
+            if len(s) < min_length:
+                min_length = len(s)
+
+            i = 0
+            while i < min_length:
+                for s in strs:
+                    if s[i] != strs[0][i]:
+                        return s[:i]
+                i += 1
+
+        return s[:1]
+
 # Create an instance of the Solution class
 solution = Solution()
 
@@ -128,6 +145,12 @@ solution = Solution()
 
 # maxProfit cases
 # Output: 5
-print(solution.maxProfit([7,1,5,3,6,4]))
+# print(solution.maxProfit([7,1,5,3,6,4]))
 # Output: 0
-print(solution.maxProfit([7,6,4,3,1]))
+# print(solution.maxProfit([7,6,4,3,1]))
+
+# longestCommonPrefix cases
+# Output: "fl"
+print(solution.longestCommonPrefix(["flower", "flow", "flight"]))
+# Output: ""
+print(solution.longestCommonPrefix(["dog", "racecar", "car"]))
