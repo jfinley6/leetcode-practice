@@ -129,8 +129,25 @@ class Solution:
                 ans.append(str(start))
 
             i += 1
-            
+
         return ans
+
+    # Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i]. The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer. You must write an algorithm that runs in O(n) time and without using the division operation.
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        l_arr, r_arr = [0] * n, [0] * n
+        l_mut, r_mut = 1, 1
+
+        i = 0
+        for i in range(n):
+            j = -i - 1
+            l_arr[i] = l_mut
+            r_arr[j] = r_mut
+            l_mut *= nums[i]
+            r_mut *= nums[j]
+            i += 1
+
+        return [a * b for a, b in zip(l_arr, r_arr)]
 
 # Create an instance of the Solution class
 solution = Solution()
@@ -177,6 +194,12 @@ solution = Solution()
 
 # summaryRanges cases
 # Output: ["0->2","4->5","7"]
-print(solution.summaryRanges([0,1,2,4,5,7]))
+# print(solution.summaryRanges([0,1,2,4,5,7]))
 # Output: ["0","2->4","6","8->9"]
-print(solution.summaryRanges([0,2,3,4,6,8,9]))
+# print(solution.summaryRanges([0,2,3,4,6,8,9]))
+
+# productExceptSelf cases
+# Output: [24,12,8,6]
+print(solution.productExceptSelf([1,2,3,4]))
+# Output: [0,0,9,0,0]
+print(solution.productExceptSelf([-1, 1, 0, -3, 3]))
