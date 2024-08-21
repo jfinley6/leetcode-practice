@@ -149,6 +149,19 @@ class Solution:
 
         return [a * b for a, b in zip(l_arr, r_arr)]
 
+    # Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+    def mergeIntervals(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key = lambda interval: interval[0])
+        merged = []
+
+        for interval in intervals:
+            if not merged or merged[-1][1] < interval[0]:
+                merged.append(interval)
+            else:
+                merged[-1] = [merged[-1][0], max(merged[-1][1], interval[1])]
+
+        return merged
+    
 # Create an instance of the Solution class
 solution = Solution()
 
@@ -200,6 +213,12 @@ solution = Solution()
 
 # productExceptSelf cases
 # Output: [24,12,8,6]
-print(solution.productExceptSelf([1,2,3,4]))
+# print(solution.productExceptSelf([1,2,3,4]))
 # Output: [0,0,9,0,0]
-print(solution.productExceptSelf([-1, 1, 0, -3, 3]))
+# print(solution.productExceptSelf([-1, 1, 0, -3, 3]))
+
+# mergeIntervals cases
+# Output: [[1,6],[8,10],[15,18]]
+print(solution.mergeIntervals([[1,3],[2,6],[8,10],[15,18]]))
+# Output: [[1,5]]
+print(solution.mergeIntervals([[1,4],[4,5]]))
