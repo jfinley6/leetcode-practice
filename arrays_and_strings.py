@@ -162,6 +162,55 @@ class Solution:
 
         return merged
     
+    # Given an m x n matrix, return all elements of the matrix in spiral order.
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        ans = []
+        m = len(matrix)
+        n = len(matrix[0])
+        LEFT_WALL = -1
+        UP_WALL = 0
+        RIGHT_WALL = n
+        DOWN_WALL = m
+        i, j = 0, 0
+        RIGHT, DOWN, LEFT, UP = 0, 1, 2, 3
+        direction = RIGHT
+
+        while len(ans) != m * n:
+            if direction == RIGHT:
+                while j < RIGHT_WALL:
+                    ans.append(matrix[i][j])
+                    j += 1
+                i += 1
+                j -= 1
+                RIGHT_WALL -= 1
+                direction = DOWN
+            elif direction == DOWN:
+                while i < DOWN_WALL:
+                    ans.append(matrix[i][j])
+                    i += 1
+                i -= 1
+                j -= 1
+                DOWN_WALL -= 1
+                direction = LEFT
+            elif direction == LEFT:
+                while j > LEFT_WALL:
+                    ans.append(matrix[i][j])
+                    j -= 1
+                i -= 1
+                j += 1
+                LEFT_WALL += 1
+                direction = UP
+            elif direction == UP:
+                while i > UP_WALL:
+                    ans.append(matrix[i][j])
+                    i -= 1
+                i += 1
+                j += 1
+                UP_WALL += 1
+                direction = RIGHT
+                
+        return ans
+    
 # Create an instance of the Solution class
 solution = Solution()
 
@@ -219,6 +268,12 @@ solution = Solution()
 
 # mergeIntervals cases
 # Output: [[1,6],[8,10],[15,18]]
-print(solution.mergeIntervals([[1,3],[2,6],[8,10],[15,18]]))
+# print(solution.mergeIntervals([[1,3],[2,6],[8,10],[15,18]]))
 # Output: [[1,5]]
-print(solution.mergeIntervals([[1,4],[4,5]]))
+# print(solution.mergeIntervals([[1,4],[4,5]]))
+
+# spiralOrder cases
+# Outputs: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+print(solution.spiralOrder([[1,2,3],[4,5,6],[7,8,9]]))
+# Outputs: [1,2,3,4,8,12,11,10,9,5,6,7]
+print(solution.spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]]))
